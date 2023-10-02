@@ -20,9 +20,9 @@ async def create_students(session: AsyncSession) -> None:
     Создает в БД студентов
     :param session: сессия БД
     """
-    student_1 = Student(firstname="Иван", lastname="Иванов", student_number=421235)
-    student_2 = Student(firstname="Петр", lastname="Петров", student_number=431232)
-    student_3 = Student(firstname="Тест", lastname="Тестовый", student_number=1)
+    student_1 = Student(firstname="Иван", lastname="Иванов")
+    student_2 = Student(firstname="Петр", lastname="Петров")
+    student_3 = Student(firstname="Тест", lastname="Тестовый")
     students = [student_1, student_2, student_3]
     session.add_all(students)
     await session.commit()
@@ -84,9 +84,8 @@ async def create_courses(  # pylint: disable=too-many-locals,too-many-branches
 знакомит слушателей с видами машинного обучения, демонстрирует практические примеры решения задач при помощи \
 методов машинного обучения с использованием языка программирования Python. Основное внимание уделяется решению \
 задач регрессии, задачам классификации и кластеризации.""",
-        semester_number=1,
         is_prerecorded_course=True,
-        implementer_id=implementers["ВШ ЦК"].id
+        implementer=implementers["ВШ ЦК"]
     )
     course_2 = Course(
         name="Управление данными",
@@ -96,8 +95,7 @@ async def create_courses(  # pylint: disable=too-many-locals,too-many-branches
 Благодаря сочетанию теоретических знаний и практических упражнений слушатели получат четкое представление\
 о дизайне архитектуры обработки данных, о методах управления данными на протяжении всего их жизненного цикла,\
 а также о внедрении стратегии управления данными, соответствующей целям организации и нормативным требованиям.""",
-        semester_number=1,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_3 = Course(
         name="Стратегия развития AI-продуктов",
@@ -108,8 +106,7 @@ async def create_courses(  # pylint: disable=too-many-locals,too-many-branches
 Рассматриваются темы составления ценностного предложения, вариации ценностного предложения, определения и валидации \
 каналов продвижения, меры отстройки от конкурентов и комплекс мероприятий для составления плана дальнейшего развития \
 продукта.""",
-        semester_number=1,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_4 = Course(
         name="Системы обработки и анализа больших массивов данных",
@@ -118,8 +115,7 @@ async def create_courses(  # pylint: disable=too-many-locals,too-many-branches
 Hadoop, базовый фреймворк для работы с большими данными Spark, а также брокеры сообщений Apache Kafka и NoSQL БД \
 Apache Cassandra. По итогам курса слушатель получит представление о ландшафте технологий больших данных, а также об \
 их базовом внутреннем устройстве необходимым для работы с ними начальном в роли пользователя.""",
-        semester_number=1,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_5 = Course(
         name="Разработка веб-приложений (Python Backend)",
@@ -131,9 +127,7 @@ integration, smoke, regression, системное; нефункциональн
 размеры, преимущества и недостатки. Разработка микросервисных веб-приложений, их размеры, преимущества и недостатки. \
 Нормализация баз данных, транзакционные принципы, кэширование (Redis). Развертывание веб-приложений и автоматизация \
 (Docker, Jenkins, Kubernetes/OpenShift).""",
-        semester_number=1,
-        limit=15,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_6 = Course(
         name="Продвинутое МО (Python) и Глубокое обучение",
@@ -145,9 +139,8 @@ integration, smoke, regression, системное; нефункциональн
 рассказывается про перцептрон, полносвязный нейронные сети, сверточные и рекуррентные архитектуры; обсуждается \
 глубокое обучение с подкреплением, GANы, а также практические аспекты обучения: аугментация данных, тюнинг \
 параметров, дропаут, оптимизация и многое другое.""",
-        semester_number=1,
         is_prerecorded_course=True,
-        implementer_id=implementers["ВШ ЦК"].id
+        implementer=implementers["ВШ ЦК"]
     )
     course_7 = Course(
         name="Программирование на языке Kotlin",
@@ -157,9 +150,7 @@ integration, smoke, regression, системное; нефункциональн
 Дата-классы. Компаньоны. Система типов. Null в Kotlin. Коллекции. Функциональное API коллекций. Последовательности. \
 Использование функциональных интерфейсов Java. Перегрузка операторов. Делегирование свойств. Фукнции высшего порядка. \
 Инлайн-функции. Обобщенные типы. Аннотации и рефлексия. DSL. Корутины.""",
-        semester_number=1,
-        limit=10,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_8 = Course(
         name="Программирование на С++",
@@ -167,9 +158,8 @@ integration, smoke, regression, системное; нефункциональн
 Введение. Дин.память. Области видимости, глобальные переменные, пространства имен. Заголовочные файлы. Классы \
 Полиморфизм, RTTI, dynamic_cast, typeid. Шаблоны. Категории значений и мув семантика. Лямбды. STL функциональные \
 объекты. Вариативные шаблоны. CTAD, CRTP. Error handling. Exceptions. Exception safety. Полиморфизм.""",
-        semester_number=1,
         is_prerecorded_course=True,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_9 = Course(
         name="Практикум по разработке ML-сервисов на Python",
@@ -177,15 +167,13 @@ integration, smoke, regression, системное; нефункциональн
 Курс посвящен основам бекенда для ML разработчиков. Будут рассмотрены основы бекенд разработки, дизайна API, \
 сервинга ML моделей и работа с базами данных. Библиотеки для WebUI на Python - dash и streamlit. Упаковка в Docker \
 Сбор и анализ метрик.""",
-        semester_number=1,
-        implementer_id=implementers["ПИШ"].id
+        implementer=implementers["ПИШ"]
     )
     course_10 = Course(
         name="Параллельное программирование",
         description="""Онлайн-курс на платформе Stepik""",
-        semester_number=1,
         is_prerecorded_course=True,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_11 = Course(
         name="Основы построения рекомендательных систем",
@@ -198,8 +186,7 @@ integration, smoke, regression, системное; нефункциональн
 будет связаны с разработкой или улучшением рекомендательного сервиса на основе заданного шаблона. Но и про \
 особенности локальной разработки, такие как ускорение расчета метрик или визуализация работы моделей в Jupyter \
 Notebook, здесь также будет упомянуто.""",
-        semester_number=1,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     course_12 = Course(
         name="Алгоритмы и структуры данных",
@@ -207,18 +194,13 @@ Notebook, здесь также будет упомянуто.""",
 В этом курсе мы рассмотрим основные алгоритмы и структуры данных, которые ДОЛЖЕН знать каждый программист. \
 (хотя бы для того, чтобы проходить алгоритмические собеседования на leetcode) Мы покрываем базу: сортировки, стек, \
 очередь, бинарные деревья поиска, динамическое программирование, строки и графы.""",
-        semester_number=1,
-        implementer_id=implementers["ИПКН"].id
+        implementer=implementers["ИПКН"]
     )
     courses = [
         course_1, course_2, course_3, course_4, course_5,
         course_6, course_7, course_8, course_9, course_10,
         course_11, course_12
     ]
-    session.add_all(courses)
-    await session.commit()
-    for course in courses:
-        await session.refresh(course)
     for role in [roles["ML Engineer"], roles["Data Engineer"], roles["Data Analyst"]]:
         course_1.roles.append(role)
     for role in [roles["Data Engineer"]]:
@@ -247,7 +229,7 @@ Notebook, здесь также будет упомянуто.""",
     await session.commit()
     for course in courses:
         await session.refresh(course)
-    return courses
+    return [course_2, course_3, course_4, course_5, course_7, course_9, course_11, course_12]
 
 
 async def create_course_lessons(  # pylint: disable=too-many-locals

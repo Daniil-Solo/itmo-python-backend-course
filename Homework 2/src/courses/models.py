@@ -34,6 +34,15 @@ class CourseLesson(Base):  # pylint: disable=too-few-public-methods
     finish_time: so.Mapped[datetime] = so.mapped_column(DateTime)
 
 
+class Implementer(Base):  # pylint: disable=too-few-public-methods
+    """
+    Модель Реализатора для курса
+    Примеры: ИПКН, ВШ ЦК и т.д.
+    """
+    __tablename__ = "implementers"
+    name: so.Mapped[str] = so.mapped_column(String, unique=True)
+
+
 class Course(Base):  # pylint: disable=too-few-public-methods
     """
     Модель Курса
@@ -43,21 +52,11 @@ class Course(Base):  # pylint: disable=too-few-public-methods
     __tablename__ = "courses"
     name: so.Mapped[str] = so.mapped_column(String, unique=True)
     description: so.Mapped[str] = so.mapped_column(String)
-    semester_number: so.Mapped[int] = so.mapped_column(Integer)
-    limit: so.Mapped[int] = so.mapped_column(Integer, default=None, nullable=True)
     is_prerecorded_course: so.Mapped[bool] = so.mapped_column(Boolean, default=False)
     implementer_id: so.Mapped[int] = so.mapped_column(ForeignKey("implementers.id"))
-    roles: so.Mapped[list[Role]] = so.relationship(Role, secondary=RoleForCourse.__tablename__, lazy='joined')
+    implementer: so.Mapped[Implementer] = so.relationship(Implementer)
+    roles: so.Mapped[list[Role]] = so.relationship(Role, secondary=RoleForCourse.__tablename__)
     lessons: so.Mapped[list[CourseLesson]] = so.relationship(CourseLesson)
-
-
-class Implementer(Base):  # pylint: disable=too-few-public-methods
-    """
-    Модель Реализатора для курса
-    Примеры: ИПКН, ВШ ЦК и т.д.
-    """
-    __tablename__ = "implementers"
-    name: so.Mapped[str] = so.mapped_column(String, unique=True)
 
 
 class Student(Base):  # pylint: disable=too-few-public-methods
@@ -68,7 +67,6 @@ class Student(Base):  # pylint: disable=too-few-public-methods
     __tablename__ = "students"
     firstname: so.Mapped[str] = so.mapped_column(String)
     lastname: so.Mapped[str] = so.mapped_column(String)
-    student_number: so.Mapped[int] = so.mapped_column(Integer, unique=True)
 
 
 class CourseForStudent(Base):  # pylint: disable=too-few-public-methods
@@ -84,13 +82,11 @@ class CourseForStudent(Base):  # pylint: disable=too-few-public-methods
 class StudentSemesterPlan(Base):  # pylint: disable=too-few-public-methods
     """
     Модель Выбора курсов студента на семестр
-    Содержит информацию о номере семестра, предпочитаемой нагрузке и подтвержденности плана
+    Содержит информацию о предпочитаемой нагрузке и статус подтверждения плана
     Предпочитаемая нагрузка это количество дисциплин, которые студент собирается изучить
     """
     __tablename__ = "student_semester_plans"
     student_id: so.Mapped[int] = so.mapped_column(ForeignKey("students.id"))
-    semester_number: so.Mapped[int] = so.mapped_column(Integer)
     semester_load: so.Mapped[int] = so.mapped_column(Integer)
     is_confirmed: so.Mapped[bool] = so.mapped_column(Boolean, default=False)
-    courses = so.relationship(Course, secondary=CourseForStudent.__tablename__, lazy='joined')
-    UniqueConstraint("student_id", "semester_number")
+    courses = so.relationship(Course, secondary=CourseForStudent.__tablename__)
