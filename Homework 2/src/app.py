@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
-from config import DB_FILEPATH
+from config import DB_FILEPATH, TEST_MODE
 from courses.router import course_router, choice_router
 from courses.exceptions import CourseException
 from database.data import migrate, create_data
@@ -22,8 +22,9 @@ async def create_db():
     """
     Создает файл по пути DB_FILEPATH, который будет использоваться как БД.
     Создает таблицы в БД и наполняет их данными.
+    Используется для тестирования и локальной разработки.
     """
-    if not os.path.exists(DB_FILEPATH):
+    if not os.path.exists(DB_FILEPATH) or TEST_MODE:
         await migrate()
         await create_data()
 

@@ -5,13 +5,17 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database.base import Base
 from database.db import DBSession, engine
 from courses.models import Implementer, Role, Course, Student, CourseLesson
+from config import TEST_MODE
 
 
 async def migrate() -> None:
     """
     Выполняет создание таблиц
+    Для тестового режима сначала выполняется удаление таблиц
     """
     async with engine.begin() as conn:
+        if TEST_MODE:
+            await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
 
 
@@ -684,6 +688,7 @@ async def create_course_lessons(  # pylint: disable=too-many-locals
 async def create_data() -> None:
     """
     Заполнение БД данными
+    Используется для тестирования
     """
     session = DBSession()
 
