@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from api_gateway.courses.router import router as course_router
+from api_gateway.auth.router import router as auth_router
 
 
 app = FastAPI(
@@ -13,3 +14,4 @@ app = FastAPI(
 
 
 app.include_router(course_router, prefix="/courses")
+app.include_router(auth_router, prefix="/auth")
