@@ -9,6 +9,8 @@ class CourseServicer(CourseServiceServicer):
     async def get_course_info(self, request: CourseRequest, context) -> CourseFullResponse:
         async with CourseRepositoryContextManager() as course_repo:
             course = await course_repo.one(request.course_id)
+            if course is None:
+                return CourseFullResponse(id=None)
         return course.to_grpc_response()
 
     async def get_courses(self, request: CourseFilterRequest, context) -> CourseListResponse:

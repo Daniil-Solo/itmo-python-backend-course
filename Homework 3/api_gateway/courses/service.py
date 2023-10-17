@@ -2,6 +2,7 @@ from typing import Optional
 from api_gateway.courses.schemas import CourseShort, CourseFull, Lesson
 from protos.course_pb2_grpc import CourseServiceStub
 from protos.course_pb2 import CourseFilterRequest, CourseRequest, CourseListResponse, CourseFullResponse
+from api_gateway.courses.exceptions import CourseDoesntExist
 
 
 class CourseService:
@@ -22,9 +23,9 @@ class CourseService:
         ]
 
     async def get_course_info(self, course_id: int) -> CourseFull:
-        response: CourseFullResponse = await self.stub.get_course_info(
-            CourseRequest(course_id=course_id)
-        )
+        response: CourseFullResponse = await self.stub.get_course_info(CourseRequest(course_id=course_id))
+        if response.id == 0:
+            raise CourseDoesntExist
         return CourseFull(
             id=response.id,
             name=response.name,

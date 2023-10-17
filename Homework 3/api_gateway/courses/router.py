@@ -1,5 +1,7 @@
 from typing import Optional
-from fastapi import APIRouter, Query, Depends, Path
+from fastapi import APIRouter, Query, Depends, Path, HTTPException
+
+from api_gateway.courses.exceptions import CourseDoesntExist
 from api_gateway.courses.schemas import CourseShort, CourseFull
 from api_gateway.courses.constants import Role, Implementer
 from api_gateway.courses.dependencies import get_course_service
@@ -46,4 +48,7 @@ async def get_course_info(
     :param course_service: сервис для работы с курсами
     :return: подробная информация о курсе
     """
-    return await course_service.get_course_info(course_id)
+    try:
+        return await course_service.get_course_info(course_id)
+    except CourseDoesntExist:
+        raise HTTPException(status_code=404, detail="Курс с таким идентификатором не существует")
