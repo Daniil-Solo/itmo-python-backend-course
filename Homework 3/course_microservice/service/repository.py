@@ -80,6 +80,7 @@ class SQLAlchemyCourseRepository(AbstractCourseRepository):
 
 
 class CourseRepositoryContextManager:
+    """Контекстный менеджер для репозитория курса"""
     def __init__(self):
         self.session = DBSession()
 

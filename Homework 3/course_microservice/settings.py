@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 
 class Settings(BaseSettings):
+    """Конфигурация для микросервиса"""
     course_grpc_server_address: str = Field(alias="COURSE_ADDRESS")
     db_filepath: str = Field(alias="COURSE_DB_FILEPATH")
     mode: str = Field(alias="MODE")

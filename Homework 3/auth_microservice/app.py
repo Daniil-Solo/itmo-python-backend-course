@@ -8,6 +8,7 @@ from auth_microservice.database.data import migrate, create_data
 
 
 async def run_server():
+    """Запускает сервер gRPC"""
     if not os.path.exists(settings.db_filepath):
         await migrate()
         await create_data()

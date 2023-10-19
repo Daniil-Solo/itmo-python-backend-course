@@ -1,6 +1,6 @@
 import grpc
-from api_gateway.settings import settings
 from protos.auth_pb2_grpc import AuthServiceStub
+from api_gateway.settings import settings
 from api_gateway.auth.service import AuthService
 
 

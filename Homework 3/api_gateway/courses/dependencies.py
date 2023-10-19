@@ -1,6 +1,6 @@
 import grpc
-from api_gateway.settings import settings
 from protos.course_pb2_grpc import CourseServiceStub
+from api_gateway.settings import settings
 from api_gateway.courses.service import CourseService
 
 

@@ -23,7 +23,6 @@ async def check_time_for_courses(
     :return: результат операции
     """
     is_successful = await time_checking_service.check(courses)
-    if is_successful:
-        return OperationResult(is_successful=True, message="Курсы не пересекаются")
-    else:
+    if not is_successful:
         return OperationResult(is_successful=False, message="К сожалению, курсы пересекаются")
+    return OperationResult(is_successful=True, message="Курсы не пересекаются")

@@ -1,15 +1,19 @@
+from datetime import datetime
 from api_gateway.auth.schemas import Login, Session
 from protos.auth_pb2_grpc import AuthServiceStub
 from protos.auth_pb2 import LoginRequest, LoginResponse, LogoutRequest
-from auth_microservice.service.exceptions import LoginException
-from datetime import datetime, timedelta
+from api_gateway.auth.exceptions import LoginException
 
 
 class AuthService:
+    """Сервис аутентификации через gRPC"""
     def __init__(self, stub: AuthServiceStub):
         self.stub = stub
 
     async def login(self, login_data: Login) -> Session:
+        """
+        Выполняет вход для пользовательских данных, возвращает сессию
+        """
         response: LoginResponse = await self.stub.login(
             LoginRequest(login=login_data.login, password=login_data.password)
         )
@@ -18,6 +22,9 @@ class AuthService:
         return Session(id=response.session_id, expire_date=datetime.fromtimestamp(response.timestamp))
 
     async def logout(self, session_id: str) -> None:
+        """
+        Выполняет выход по переданной сессии
+        """
         await self.stub.logout(
             LogoutRequest(session_id=session_id)
         )

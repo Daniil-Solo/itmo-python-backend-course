@@ -4,7 +4,7 @@ from fastapi import status
 from api_gateway.auth.schemas import Login, OperationResponse
 from api_gateway.auth.dependencies import get_auth_service
 from api_gateway.auth.service import AuthService
-from auth_microservice.service.exceptions import LoginException
+from api_gateway.auth.exceptions import LoginException
 
 router = APIRouter(tags=["Аутентификация"])
 

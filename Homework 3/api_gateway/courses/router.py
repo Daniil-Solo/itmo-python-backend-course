@@ -1,6 +1,5 @@
 from typing import Optional
 from fastapi import APIRouter, Query, Depends, Path, HTTPException
-
 from api_gateway.courses.exceptions import CourseDoesntExist
 from api_gateway.courses.schemas import CourseShort, CourseFull
 from api_gateway.courses.constants import Role, Implementer

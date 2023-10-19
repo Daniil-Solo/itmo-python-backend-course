@@ -110,6 +110,7 @@ class SQLAlchemySessionRepository(AbstractSessionRepository, SQLAlchemyRepositor
 
 
 class AbstractRepositoryContextManager:
+    """Абстрактный контекстный менеджер для репозитория"""
     def __init__(self):
         self.session = DBSession()
 
@@ -118,11 +119,13 @@ class AbstractRepositoryContextManager:
 
 
 class SessionRepositoryContextManager(AbstractRepositoryContextManager):
+    """Контекстный менеджер для репозитория сессии"""
     async def __aenter__(self) -> SQLAlchemySessionRepository:
         return SQLAlchemySessionRepository(self.session)
 
 
 class BothRepositoryContextManager(AbstractRepositoryContextManager):
+    """Контекстный менеджер для репозитория сессии и пользователя """
     async def __aenter__(self) -> tuple[SQLAlchemySessionRepository, SQLAlchemyStudentRepository]:
         return (
             SQLAlchemySessionRepository(self.session),

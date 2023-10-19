@@ -1,5 +1,5 @@
-import grpc
 from typing import Iterable
+import grpc
 from protos.course_pb2 import CourseFullResponse, CourseRequest, CourseExistsResponse
 from protos.course_pb2_grpc import CourseServiceStub
 from protos.time_checking_pb2_grpc import CheckTimeServiceServicer

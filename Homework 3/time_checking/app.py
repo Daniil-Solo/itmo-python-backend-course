@@ -6,6 +6,7 @@ from time_checking.settings import settings
 
 
 async def run_server():
+    """Запускает сервер gRPC"""
     server = aio.server()
     add_CheckTimeServiceServicer_to_server(CheckTimeServicer(), server)
     server.add_insecure_port(settings.time_checking_grpc_server_address)

@@ -1,6 +1,6 @@
 import grpc
-from api_gateway.settings import settings
 from protos.time_checking_pb2_grpc import CheckTimeServiceStub
+from api_gateway.settings import settings
 from api_gateway.time_checking.service import TimeCheckingService
 
 
