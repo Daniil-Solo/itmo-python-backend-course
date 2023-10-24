@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package time_checking;
+
+message Course{
+  int32 id = 1;
+}
+
+message CheckTimeRequest{
+  repeated Course courses = 1;
+}
+
+message CheckTimeResponse{
+  bool is_successful = 1;
+}
+
+service CheckTimeService{
+  rpc check(CheckTimeRequest) returns (CheckTimeResponse);
+}

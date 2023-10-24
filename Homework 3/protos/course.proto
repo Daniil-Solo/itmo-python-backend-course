@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package course;
+
+message CourseRequest{
+  int32 course_id = 1;
+}
+
+message CourseFilterRequest{
+  string implementer = 1;
+  string role = 2;
+  string search = 3;
+}
+
+message Lesson{
+  int32 number = 1;
+  string day_of_week = 2;
+  string string_day = 3;
+  string string_time_interval = 4;
+}
+
+message CourseFullResponse{
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  bool is_prerecorded_course = 4;
+  string implementer = 5;
+  repeated string roles = 6;
+  repeated Lesson lessons = 7;
+}
+
+message CourseShort{
+  int32 id = 1;
+  string name = 2;
+  bool is_prerecorded_course = 3;
+}
+
+message CourseListResponse{
+  repeated CourseShort courses = 1;
+}
+
+message CourseExistsResponse{
+  bool exists = 1;
+}
+
+service CourseService{
+  rpc get_course_info(CourseRequest) returns (CourseFullResponse);
+  rpc get_courses(CourseFilterRequest) returns (CourseListResponse);
+  rpc exists_course(CourseRequest) returns (CourseExistsResponse);
+}
