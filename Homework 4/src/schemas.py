@@ -20,7 +20,7 @@ class FactorialCreateRequest(BaseModel):
     """
     Схема запроса для создания задачи расчета факториала
     """
-    number: int = Field(ge=1, le=100)
+    number: int = Field(ge=1, le=10)
 
 
 class CheckFactorialResult(CheckResult):
@@ -34,7 +34,7 @@ class FibonacciCreateRequest(BaseModel):
     """
     Схема запроса для создания задачи расчета числа Фиобоначчи
     """
-    number: int = Field(ge=1, le=500)
+    number: int = Field(ge=1, le=50)
 
 
 class CheckFibonacciResult(CheckResult):

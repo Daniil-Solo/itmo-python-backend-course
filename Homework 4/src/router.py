@@ -13,10 +13,10 @@ task_router = APIRouter(tags=["Тяжелые задачи"])
 
 
 @task_router.post("/factorial", status_code=status.HTTP_201_CREATED, response_model=TaskCreateResponse,
-                  description="Рассчитывает факториал числа в пределах от 1 до 100")
+                  description="Рассчитывает факториал числа в пределах от 1 до 10")
 def calculate_factorial(data: FactorialCreateRequest = Body()):
     """
-    Рассчитывает факториал числа в пределах от 1 до 100
+    Рассчитывает факториал числа в пределах от 1 до 10
     :param data: число для расчета
     :return: идентификатор задачи
     """
@@ -38,10 +38,10 @@ def check_factorial(task_id: str = Path()):
 
 
 @task_router.post("/fibonаcci", status_code=status.HTTP_201_CREATED, response_model=TaskCreateResponse,
-                  description="Рассчитывает число Фибоначчи в пределах от 1 до 500")
+                  description="Рассчитывает число Фибоначчи в пределах от 1 до 50")
 def calculate_fibonacci(data: FibonacciCreateRequest = Body()):
     """
-    Рассчитывает число Фибоначчи в пределах от 1 до 500
+    Рассчитывает число Фибоначчи в пределах от 1 до 50
     :param data: число для расчета
     :return: идентификатор задачи
     """
