@@ -15,6 +15,7 @@ aiosqlite = "^0.19.0"
 sqlalchemy = "^2.0.21"
 celery = "^5.3.4"
 redis = "^5.0.1"
+pydantic-settings = "^2.0.3"
 
 
 [tool.poetry.group.dev.dependencies]
