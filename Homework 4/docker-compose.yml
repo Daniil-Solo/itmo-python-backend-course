@@ -1,0 +1,55 @@
+version: "3.2"
+services:
+  rabbitmq:
+    image: rabbitmq:3.12.7-management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=rmuser
+      - RABBITMQ_DEFAULT_PASS=rmpassword
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit disk_free_limit 2147483648
+    volumes:
+      - ./rabbitmq_data:/var/lib/rabbitmq/mnesia
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - mynet
+
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - 6379:6379
+    networks:
+      - mynet
+
+  worker:
+    build: .
+    command: poetry run celery -A src.celery_tasks.tasks worker --loglevel=INFO
+    environment:
+      - BROKER_URL=amqp://rmuser:rmpassword@rabbitmq:5672
+      - BACKEND_URL=redis://redis:6379/0
+    depends_on:
+      - rabbitmq
+      - redis
+    networks:
+      - mynet
+
+  api:
+    build: .
+    command: poetry run uvicorn src.app:app --host 0.0.0.0
+    environment:
+      - BROKER_URL=amqp://rmuser:rmpassword@rabbitmq:5672
+      - BACKEND_URL=redis://redis:6379/0
+    ports:
+      - 8000:8000
+    depends_on:
+      - rabbitmq
+      - redis
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
