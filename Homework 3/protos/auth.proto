@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package auth;
+
+message LoginRequest{
+  string login = 1;
+  string password = 2;
+}
+message LoginResponse{
+  string session_id = 1;
+  float timestamp = 2;
+}
+
+message LogoutRequest{
+  string session_id = 1;
+}
+message LogoutResponse{}
+
+message UserRequest{
+  string session_id = 1;
+}
+message UserResponse{
+  string user_id = 1;
+}
+
+service AuthService{
+  rpc login(LoginRequest) returns (LoginResponse);
+  rpc logout(LogoutRequest) returns (LogoutResponse);
+  rpc get_user(UserRequest) returns (UserResponse);
+}
